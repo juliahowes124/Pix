@@ -10,5 +10,6 @@ CREATE TABLE images (
     location TEXT,
     camera TEXT,
     username VARCHAR(25) NOT NULL REFERENCES users ON DELETE CASCADE,
-    isPrivate BOOLEAN NOT NULL DEFAULT false
+    is_private BOOLEAN NOT NULL DEFAULT false,
+    url TEXT NOT NULL
 )
