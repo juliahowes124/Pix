@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const users = require('./routes/users');
 const auth = require('./routes/auth');
+const images = require('./routes/images');
 
 // process JSON body => req.body
 app.use(express.json());
@@ -11,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/users', users);
 app.use('/auth', auth);
+app.use('/images', images);
 
 /** Homepage renders simple message. */
 
