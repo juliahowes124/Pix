@@ -1,7 +1,9 @@
 const db = require('../db');
 const express = require('express');
+const { authenticateJWT } = require('../middlewear/auth');
 
-const router = express.Router();
+const router = express.Router()
+
 
 router.get('/', async (req, res, next) => {
   const results = await db.query(`

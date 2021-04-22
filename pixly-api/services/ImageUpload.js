@@ -1,7 +1,7 @@
 const aws = require('aws-sdk');
 const multer = require("multer");
 const multerS3 = require("multer-s3");
-require('dotenv').config()
+require('dotenv').config();
 
 ///THIS HAS TO BE CONFIGURED BEFORE AWS INSTANTIATION
 aws.config.update({
@@ -35,5 +35,4 @@ const upload = multer({
   })
 });
 
-module.exports = upload;
-   
+module.exports = {upload};
