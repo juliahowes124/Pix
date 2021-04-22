@@ -13,6 +13,12 @@ class PixlyApi {
     return images;
   }
 
+  static async fetchUserImages(username, token) {
+    const res = await axios.get(`${BASE_URL}/users/${username}/images`, { headers: { 'Authorization': `Bearer ${token}`} });
+    const { images } = res.data;
+    return images;
+  }
+
   static async uploadImage(data, token) {
     const fd = new FormData();
     fd.append('image', data.image)
