@@ -31,7 +31,7 @@ function AuthForm({ type, authFunc }) {
       {Object.keys(formData).map(k => {
         return <div key={k}>
           <label htmlFor={k}>{k}</label>
-          <input id={k} name={k} value={formData[k]} onChange={handleChange} />
+          <input type={k === "password" ? "password" : "text"} id={k} name={k} value={formData[k]} onChange={handleChange} />
         </div>;
       })}
       <button>{type === "login" ? "Login" : "Register"}</button>

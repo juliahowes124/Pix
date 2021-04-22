@@ -8,7 +8,6 @@ function Home() {
   useEffect(() => {
     async function getImages() {
       const images = await PixlyApi.fetchImages();
-      console.log(images);
       setImages(images);
     };
     getImages();

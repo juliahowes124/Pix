@@ -17,8 +17,9 @@ function App() {
     history.push('/')
   }
 
-  function login(data){
-    const userAndToken = PixlyApi.login(data);
+  async function login(data){
+    const userAndToken = await PixlyApi.login(data);
+    console.log(userAndToken)
     if(userAndToken){
       setUser(userAndToken);
       history.push('/');
@@ -26,8 +27,8 @@ function App() {
     
   }
 
-  function register(data) {
-    const userAndToken = PixlyApi.register(data);
+  async function register(data) {
+    const userAndToken = await PixlyApi.register(data);
     if (userAndToken) {
       setUser(userAndToken);
       history.push('/');
