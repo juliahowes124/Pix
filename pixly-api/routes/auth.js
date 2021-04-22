@@ -17,7 +17,7 @@ router.post('/login', async (req, res, next) => {
   }
   const { username, password } = req.body;
   const result = await db.query(
-    `SELECT username, password
+    `SELECT username, first_name AS "firstName", last_name AS "lastName", password
      FROM users
      WHERE username = $1`,
     [username]
@@ -73,7 +73,10 @@ router.post('/register', async (req, res, next) => {
 
   const user = result.rows[0];
 
-  return res.json({ user });
+  if (user) {
+    return res.json({ token: createToken(user) });
+  }
+
 });
 
 module.exports = router;

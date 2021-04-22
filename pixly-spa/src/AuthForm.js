@@ -1,22 +1,24 @@
-import {useState} from 'react';
+import { useEffect, useState } from 'react';
 
-function AuthForm({type, authFunc}) {
-  console.log('rendering auth form');
-  console.log(type);
+function AuthForm({ type, authFunc }) {
   let initialState;
-  switch(type) {
+  switch (type) {
     case 'login':
-      initialState = {username: '', password: ''};
+      initialState = { username: '', password: '' };
       break;
     case 'register':
-      initialState = {username: '', password: '', firstName: '', lastName: ''};
+      initialState = { username: '', password: '', firstName: '', lastName: '' };
       break;
   }
   const [formData, setFormData] = useState(initialState);
-  console.log(formData);
+
+  useEffect(() => {
+    setFormData(initialState);
+  }, [type]);
+
   function handleChange(evt) {
-    const {name, value} = evt.target;
-    setFormData(fData => ({...fData, [name]:value}))
+    const { name, value } = evt.target;
+    setFormData(fData => ({ ...fData, [name]: value }));
   }
 
   function handleSubmit(evt) {
@@ -24,17 +26,15 @@ function AuthForm({type, authFunc}) {
     authFunc(formData);
   }
 
-
-
   return (
     <form onSubmit={handleSubmit}>
       {Object.keys(formData).map(k => {
         return <div key={k}>
           <label htmlFor={k}>{k}</label>
-          <input id={k} name={k} value={formData[k]} onChange={handleChange}/>
-        </div>
+          <input id={k} name={k} value={formData[k]} onChange={handleChange} />
+        </div>;
       })}
-      <button>{type==="login" ? "Login": "Register"}</button>
+      <button>{type === "login" ? "Login" : "Register"}</button>
     </form>
   );
 }

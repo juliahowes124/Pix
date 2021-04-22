@@ -18,14 +18,20 @@ function App() {
   }
 
   function login(data){
-    const user = PixlyApi.login(data);
-    if(user){
-      setUser(user);
-    }
+    const userAndToken = PixlyApi.login(data);
+    if(userAndToken){
+      setUser(userAndToken);
+      history.push('/');
+    } 
+    
   }
 
   function register(data) {
-    console.log('in register...');
+    const userAndToken = PixlyApi.register(data);
+    if (userAndToken) {
+      setUser(userAndToken);
+      history.push('/');
+    }
   }
 
   return (
