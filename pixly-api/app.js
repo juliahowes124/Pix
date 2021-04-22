@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const images = require('./routes/images');
 const { authenticateJWT} = require("./middlewear/auth")
 
+app.use(cors());
 // process JSON body => req.body
 app.use(express.json());
 
