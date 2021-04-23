@@ -10,9 +10,29 @@ function ImageDetails() {
   const { user } = useContext(UserContext);
   const { images } = useContext(ImagesContext);
   const [image, setImage] = useState(null);
-  const [edit, setEdit] = useState(null);
   const [file, setFile] = useState(null);
 
+  useEffect(() => {
+    const image = images.find(i => i.id === +id);
+    setImage(image.url);
+
+  }, [])
+
+  
+  function handleEdit(){
+    Jimp.read(image)
+    .then(img => {
+      return img
+      .resize(256, 256) // resize
+      // .quality(60) // set JPEG quality
+      .greyscale() // set greyscale
+      .getBuffer(Jimp.AUTO, bufferCB);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }
+  
   function bufferCB(err, buffer) {
     setFile(new File([buffer.buffer], "image.png", {
       type: "image/png",
@@ -22,43 +42,7 @@ function ImageDetails() {
     let base64String = btoa(STRING_CHAR);
     setImage('data:image/png;base64,' + base64String);
   }
-
-  function handleEdit(){
-    Jimp.read(image)
-      .then(img => {
-        return img
-          .resize(256, 256) // resize
-          .quality(60) // set JPEG quality
-          .greyscale() // set greyscale
-          .getBuffer(Jimp.AUTO, bufferCB);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  }
-
-  useEffect(() => {
-    const image = images.find(i => i.id === +id);
-    setImage(image.url);
-
-  }, [])
-
-  // useEffect(() => {
-  //   const image = images.find(i => i.id === +id);
-  //   Jimp.read(image.url)
-  //     .then(img => {
-  //       return img
-  //         .resize(256, 256) // resize
-  //         .quality(60) // set JPEG quality
-  //         .greyscale() // set greyscale
-  //         .getBuffer(Jimp.AUTO, bufferCB);
-  //     })
-  //     .catch(err => {
-  //       console.error(err);
-  //     });
-  //   setImage(image);
-  // }, [images, id]);
-
+  
   function uploadFile() {
     PixlyApi.uploadImage({ image: file }, user.token);
   }
