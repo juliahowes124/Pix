@@ -20,12 +20,11 @@ function ImageDetails() {
     const bytes = new Uint8Array(buffer);
     const STRING_CHAR = String.fromCharCode.apply(null, bytes);
     let base64String = btoa(STRING_CHAR);
-    setEdit('data:image/png;base64,' + base64String);
+    setImage('data:image/png;base64,' + base64String);
   }
 
-  useEffect(() => {
-    const image = images.find(i => i.id === +id);
-    Jimp.read(image.url)
+  function handleEdit(){
+    Jimp.read(image)
       .then(img => {
         return img
           .resize(256, 256) // resize
@@ -36,8 +35,29 @@ function ImageDetails() {
       .catch(err => {
         console.error(err);
       });
-    setImage(image);
-  }, [images, id]);
+  }
+
+  useEffect(() => {
+    const image = images.find(i => i.id === +id);
+    setImage(image.url);
+
+  }, [])
+
+  // useEffect(() => {
+  //   const image = images.find(i => i.id === +id);
+  //   Jimp.read(image.url)
+  //     .then(img => {
+  //       return img
+  //         .resize(256, 256) // resize
+  //         .quality(60) // set JPEG quality
+  //         .greyscale() // set greyscale
+  //         .getBuffer(Jimp.AUTO, bufferCB);
+  //     })
+  //     .catch(err => {
+  //       console.error(err);
+  //     });
+  //   setImage(image);
+  // }, [images, id]);
 
   function uploadFile() {
     PixlyApi.uploadImage({ image: file }, user.token);
@@ -45,8 +65,8 @@ function ImageDetails() {
 
   return (image ? (
     <>
-      <img src={image.url} />
-      <img src={edit} />
+      <img src={image} />
+      <button onClick={handleEdit}>Edit</button>
       <button onClick={uploadFile}>Beam me up, Scotty</button>
     </>
   ) : (
