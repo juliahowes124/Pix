@@ -1,4 +1,5 @@
 import {useContext, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import PixlyApi from './PixlyApi';
 import ImagesContext from './context/imagesContext';
 
@@ -15,7 +16,9 @@ function Home() {
 
   return (
     images ? (
-      images.map(i => <img src={i.url} key={i.id} style={{width: '200px', height: '200px'}}/>)
+      images.map(i => <Link key={i.id} to={`/images/${i.id}`}>
+        <img src={i.url}  style={{width: '200px', height: '200px'}}/>
+      </Link>)
     ) : (
       <div>Loading...</div>
     )
