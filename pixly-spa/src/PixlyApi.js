@@ -22,7 +22,6 @@ class PixlyApi {
   static async uploadImage(data, token) {
     const fd = new FormData();
     fd.append('image', data.image)
-    console.log(typeof data.image)
     const res = await axios.post(`${BASE_URL}/images`, fd,
       { headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } });
     console.log(res.data);
