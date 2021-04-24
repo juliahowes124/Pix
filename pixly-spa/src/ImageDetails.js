@@ -20,9 +20,14 @@ function ImageDetails() {
 
 
   function handleEdit(method, arg) {
+    Jimp.read(image).then(img => img[method](arg).getBuffer(Jimp.AUTO, bufferCB));
+  }
+
+  function handleEditColor(method, arg) {
     Jimp.read(image).then(img => {
-      console.log(img)
-      return img[method](arg).getBuffer(Jimp.AUTO, bufferCB);
+      img.color([
+        { apply: method, params: [arg] }
+      ]).getBuffer(Jimp.AUTO, bufferCB);
     });
   }
 
@@ -39,9 +44,9 @@ function ImageDetails() {
   return (image ? (
     <>
       <img src={image} />
-      <button onClick={() => { handleEdit('greyscale'); }}>Edit</button>
-      <button onClick={() => { handleEdit('posterize', 10); }}>Edit</button>
-      <button onClick={() => { handleEdit('saturate'); }}>Edit</button>
+      <button onClick={() => { handleEditColor('greyscale') }}>Edit</button>
+      <button onClick={() => { handleEdit('posterize', 10) }}>Edit</button>
+      <button onClick={() => { handleEditColor('saturate', 50) }}>Edit</button>
       <button onClick={uploadFile}>Beam me up, Scotty</button>
     </>
   ) : (

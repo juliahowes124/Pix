@@ -12,19 +12,19 @@ function App() {
   const [user, setUser] = useState(null);
   const history = useHistory()
 
+  //WHERE DO WE PUT THESE FUNCTIONS? -- ok to have some funcs in app
+  //move images out of app?
   function logout(){
     setUser(null);
-    history.push('/')
+    history.push('/');
   }
 
   async function login(data){
     const userAndToken = await PixlyApi.login(data);
-    console.log(userAndToken)
     if(userAndToken){
       setUser(userAndToken);
       history.push('/');
     } 
-    
   }
 
   async function register(data) {
@@ -35,6 +35,7 @@ function App() {
     }
   }
 
+  //SHOULD IMAGES BE CONTEXT??
   return (
     <div>
       <UserContext.Provider value={{user, logout, login, register}}>

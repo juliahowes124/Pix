@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 function AuthForm({ type, authFunc }) {
+  //OTHER WAYS TO HANDLE TYPES OF FORMS
   let initialState;
   switch (type) {
     case 'login':
