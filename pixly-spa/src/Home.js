@@ -18,7 +18,7 @@ function Home() {
   return (
     images ? (
       images.map(i => <Link key={i.id} to={`/images/${i.id}`}>
-        <img src={i.url}  style={{width: '200px', height: '200px'}}/>
+        <img src={i.s3_url}  style={{width: '200px', height: '200px'}}/>
       </Link>)
     ) : (
       <div>Loading...</div>

@@ -19,7 +19,7 @@ function Profile() {
 
   return (
     images ? (
-      images.map(i => <img src={i.url} key={i.id} style={{width: '200px', height: '200px'}}/>)
+      images.map(i => <img src={i.s3_url} key={i.id} style={{width: '200px', height: '200px'}}/>)
     ) : (
       <div>Loading...</div>
     )

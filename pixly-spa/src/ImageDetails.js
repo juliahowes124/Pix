@@ -14,7 +14,7 @@ function ImageDetails() {
 
   useEffect(() => {
     const image = images.find(i => i.id === +id);
-    setImage(image.url);
+    setImage(image.s3_url);
 
   }, []);
 

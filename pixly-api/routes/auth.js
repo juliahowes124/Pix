@@ -17,7 +17,7 @@ router.post('/login', async (req, res, next) => {
   }
   const { username, password } = req.body;
   const result = await db.query(
-    `SELECT username, first_name AS "firstName", last_name AS "lastName", password
+    `SELECT username, password
      FROM users
      WHERE username = $1`,
     [username]
@@ -40,7 +40,7 @@ router.post('/register', async (req, res, next) => {
     throw new BadRequestError(errs);
   }
 
-  const { username, password, firstName, lastName } = req.body;
+  const { username, password } = req.body;
 
   const duplicateCheck = await db.query(
     `SELECT username
@@ -58,16 +58,12 @@ router.post('/register', async (req, res, next) => {
   const result = await db.query(
     `INSERT INTO users
       (username,
-        password,
-        first_name,
-        last_name)
-      VALUES ($1, $2, $3, $4)
-      RETURNING username, first_name AS "firstName", last_name AS "lastName"`,
+        password)
+      VALUES ($1, $2)
+      RETURNING username`,
     [
       username,
-      hashedPassword,
-      firstName,
-      lastName
+      hashedPassword
     ],
   );
 

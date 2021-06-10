@@ -8,7 +8,7 @@ function AuthForm({ type, authFunc }) {
       initialState = { username: '', password: '' };
       break;
     case 'register':
-      initialState = { username: '', password: '', firstName: '', lastName: '' };
+      initialState = { username: '', password: '' };
       break;
   }
   const [formData, setFormData] = useState(initialState);

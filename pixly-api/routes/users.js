@@ -19,8 +19,8 @@ router.get('/:username/images/:id', ensureCorrectUser, async (req, res, next) =>
   const {id, username} = req.params
   const results = await db.query(`
         SELECT * FROM images
-        WHERE id = $1 and username = $2
-    `, [id, username]);
+        WHERE id = $1 and album_id = $2
+    `, [id, 1]);
   if (results.rows.length === 0) {
     return res.json({ error: "not your image or image does not exist" });
   }
@@ -33,8 +33,8 @@ router.get('/:username/images', ensureCorrectUser, async (req, res, next) => {
   const {username} = req.params
   const results = await db.query(`
         SELECT * FROM images
-        WHERE username = $1
-    `, [username]);
+        WHERE album_id = $1
+    `, [1]);
   if (results.rows.length === 0) {
     return res.json({ error: "upload some images, doofus!" });
   }

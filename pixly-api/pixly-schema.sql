@@ -1,15 +1,18 @@
 CREATE TABLE users (
   username VARCHAR(25) PRIMARY KEY,
-  password TEXT NOT NULL,
-  first_name TEXT NOT NULL,
-  last_name TEXT NOT NULL
+  password TEXT NOT NULL
+);
+
+CREATE TABLE albums (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  is_private BOOLEAN NOT NULL DEFAULT false,
+  owner VARCHAR(25) NOT NULL REFERENCES users ON DELETE CASCADE
 );
 
 CREATE TABLE images (
     id SERIAL PRIMARY KEY,
-    location TEXT,
-    camera TEXT,
-    username VARCHAR(25) NOT NULL REFERENCES users ON DELETE CASCADE,
-    is_private BOOLEAN NOT NULL DEFAULT false,
-    url TEXT NOT NULL
-)
+    s3_url TEXT NOT NULL,
+    album_id SERIAL NOT NULL REFERENCES albums ON DELETE CASCADE
+);
+
