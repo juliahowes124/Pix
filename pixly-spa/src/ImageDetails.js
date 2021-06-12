@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import ImagesContext from './context/imagesContext';
 import Jimp from 'jimp';
 import PixlyApi from './PixlyApi';
 import UserContext from './context/userContext';
@@ -8,14 +7,16 @@ import UserContext from './context/userContext';
 function ImageDetails() {
   const { id } = useParams();
   const { user } = useContext(UserContext);
-  const { images } = useContext(ImagesContext);
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
 
   useEffect(() => {
-    const image = images.find(i => i.id === +id);
-    setImage(image.s3_url);
+    async function getImage() {
+      const image = await PixlyApi.fetchImageById(+id);
+      setImage(image.s3_url);
+    }
 
+    getImage();
   }, []);
 
 

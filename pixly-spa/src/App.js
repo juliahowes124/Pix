@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import ImagesContext from './context/imagesContext';
 import NavBar from './NavBar';
 import Routes from './Routes';
 import UserContext from './context/userContext';
@@ -35,14 +34,11 @@ function App() {
     }
   }
 
-  //SHOULD IMAGES BE CONTEXT??
   return (
     <div>
       <UserContext.Provider value={{user, logout, login, register}}>
-        <ImagesContext.Provider value={{images, setImages}}>
-          <NavBar />
-          <Routes />
-        </ImagesContext.Provider>
+        <NavBar />
+        <Routes />
       </UserContext.Provider>
     </div>
   );

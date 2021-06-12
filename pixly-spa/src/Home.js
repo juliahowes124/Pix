@@ -1,10 +1,9 @@
-import {useContext, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import PixlyApi from './PixlyApi';
-import ImagesContext from './context/imagesContext';
 
 function Home() {
-  const {images, setImages} = useContext(ImagesContext); //without context, since 2 different endpoints, or move context closer
+  const [images, setImages] = useState(null); //without context, since 2 different endpoints, or move context closer
   
 
   useEffect(() => {

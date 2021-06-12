@@ -1,25 +1,23 @@
-import {useContext, useEffect} from 'react';
-import ImagesContext from './context/imagesContext';
+import {useState, useContext, useEffect} from 'react';
 import UserContext from './context/userContext';
 import PixlyApi from './PixlyApi';
 
 function Profile() {
-  const {images, setImages} = useContext(ImagesContext);
+  const [albums, setAlbums] = useState([]);
   const {user} = useContext(UserContext)
 
   useEffect(() => {
-    async function getImages() {
-      const images = await PixlyApi.fetchUserImages(user.username, user.token);
-      setImages(images);
-      console.log('images set')
+    async function getAlbums() {
+      const albums = await PixlyApi.fetchUserAlbums(user.username, user.token);
+      setAlbums(albums);
     };
-    getImages();
+    getAlbums();
   }, []);
 
 
   return (
-    images ? (
-      images.map(i => <img src={i.s3_url} key={i.id} style={{width: '200px', height: '200px'}}/>)
+    albums ? (
+      albums.map(a => <h2>{a.name}</h2>)
     ) : (
       <div>Loading...</div>
     )
