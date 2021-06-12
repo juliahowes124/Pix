@@ -4,6 +4,7 @@ const cors = require("cors");
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const images = require('./routes/images');
+const albums = require('./routes/albums');
 const { authenticateJWT} = require("./middlewear/auth")
 
 app.use(cors());
@@ -18,6 +19,7 @@ app.use(authenticateJWT);
 
 app.use('/users', users);
 app.use('/images', images);
+app.use('/albums', albums);
 
 app.use('/auth', auth);
 /** Homepage renders simple message. */

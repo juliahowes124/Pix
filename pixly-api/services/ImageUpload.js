@@ -13,7 +13,6 @@ const s3 = new aws.S3();
 
 
 function upload(req, res, next) {
-  console.log('IN FILE UPLOAD SERVICE')
   let ext = req.files.image.name.split('.')[1]
   const params = {
     ACL: 'public-read',
