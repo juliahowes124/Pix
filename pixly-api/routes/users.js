@@ -1,25 +1,17 @@
 const db = require('../db');
 const express = require('express');
-const { authenticateJWT, ensureCorrectUser } = require('../middlewear/auth');
+const User = require('../models/user');
 
 const router = express.Router()
 
 router.get('/', async (req, res, next) => {
-  const results = await db.query(`
-    SELECT username FROM users
-  `);
-  const users = results.rows;
+  const users = await User.all();
   return res.json({users});
 })
 
 router.get('/:username', async (req, res, next) => {
   const {username} = req.params;
-  const results = await db.query(`
-    SELECT username, albums.id, albums.name FROM users
-    LEFT JOIN albums
-    ON creator = $1 
-  `, [username]);
-  const user = results.rows[0];
+  const user = await User.get(username);
   return res.json({user});
 })
 

@@ -1,6 +1,5 @@
 const db = require('../db');
 const express = require('express');
-const { authenticateJWT, ensureCorrectUser } = require('../middlewear/auth');
 
 const router = express.Router()
 
