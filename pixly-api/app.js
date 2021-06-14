@@ -16,16 +16,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(authenticateJWT);
 
-
 app.use('/users', users);
 app.use('/images', images);
 app.use('/albums', albums);
 
 app.use('/auth', auth);
-/** Homepage renders simple message. */
-
-app.get("/", function (req, res) {
-  return res.send("Hello World!");
-});
 
 module.exports = app;

@@ -3,9 +3,8 @@ import {Link} from 'react-router-dom';
 import PixlyApi from './PixlyApi';
 
 function Home() {
-  const [images, setImages] = useState(null); //without context, since 2 different endpoints, or move context closer
+  const [images, setImages] = useState(null);
   
-
   useEffect(() => {
     async function getImages() {
       const images = await PixlyApi.fetchImages();

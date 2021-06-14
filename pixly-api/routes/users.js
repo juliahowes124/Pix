@@ -1,6 +1,7 @@
 const db = require('../db');
 const express = require('express');
 const User = require('../models/user');
+const Album = require('../models/album');
 
 const router = express.Router()
 
@@ -17,11 +18,7 @@ router.get('/:username', async (req, res, next) => {
 
 router.get('/:username/albums', async (req, res, next) => {
   const {username} = req.params;
-  const results = await db.query(`
-    SELECT albums.id, name FROM albums
-    WHERE creator = $1
-  `, [username]);
-  const albums = results.rows;
+  const albums = await Album.getAllFromUser(username);
   return res.json({albums});
 })
 

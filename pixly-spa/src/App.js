@@ -7,12 +7,9 @@ import {useHistory} from 'react-router-dom';
 import PixlyApi from './PixlyApi';
 
 function App() {
-  const [images, setImages] = useState([]);
   const [user, setUser] = useState(null);
   const history = useHistory()
 
-  //WHERE DO WE PUT THESE FUNCTIONS? -- ok to have some funcs in app
-  //move images out of app?
   function logout(){
     setUser(null);
     history.push('/');
