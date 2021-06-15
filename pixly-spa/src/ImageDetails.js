@@ -12,13 +12,12 @@ function ImageDetails() {
 
   useEffect(() => {
     async function getImage() {
-      const image = await PixlyApi.fetchImageById(+id);
-      setImage(image.s3_url);
+      const image = await PixlyApi.fetchImageById(+id, user.token);
+      setImage(image.s3Url);
     }
 
     getImage();
   }, []);
-
 
   function handleEdit(method, arg) {
     Jimp.read(image).then(img => img[method](arg).getBuffer(Jimp.AUTO, bufferCB));

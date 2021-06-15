@@ -13,8 +13,8 @@ class PixlyApi {
     return images;
   }
 
-  static async fetchImageById(id) {
-    const res = await axios.get(`${BASE_URL}/images/${id}`);
+  static async fetchImageById(id, token) {
+    const res = await axios.get(`${BASE_URL}/images/${id}`, { headers: { 'Authorization': `Bearer ${token}`}});
     const { image } = res.data;
     return image;
   }
