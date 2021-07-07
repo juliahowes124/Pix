@@ -39,6 +39,17 @@ class Album {
 
     return new Album(album);
   }
+
+   /** create new album */
+   static async create(username, album) {
+    const results = await db.query(`
+        INSERT INTO albums (name, creator)
+        VALUES ($1, $2)
+        RETURNING id, name, creator, is_private
+    `, [album.name, username]);
+
+    return new Album(results.rows[0]);
+  }
 }
 
 module.exports = Album;
