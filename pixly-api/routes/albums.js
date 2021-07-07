@@ -1,5 +1,6 @@
 const express = require('express');
 const Album = require('../models/album');
+const { ensureLoggedIn } = require('../middleware/auth');
 
 const router = express.Router()
 
@@ -9,7 +10,7 @@ router.get('/:id', async (req, res, next) => {
   return res.json({album});
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', ensureLoggedIn, async (req, res, next) => {
   const { album } = req.body;
   const { username } = res.locals.user;
   const newAlbum = await Album.create(username, album);

@@ -1,7 +1,7 @@
 const express = require('express');
 const { upload } = require("../services/ImageUpload");
 const fileUpload = require('express-fileupload');
-const { ensureLoggedIn } = require('../middlewear/auth');
+const { ensureLoggedIn } = require('../middleware/auth');
 const Image = require('../models/image');
 
 const router = express.Router();
@@ -20,7 +20,7 @@ router.get('/', async (req, res, next) => {
     return res.json({ images });
 });
 
-/** GETs public image by id - must be logged in */
+/** GETs public image by id */
 router.get('/:id', ensureLoggedIn, async (req, res) => {
     const id = req.params.id;
     const image = await Image.getById(id);
