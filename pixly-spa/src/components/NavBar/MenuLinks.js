@@ -23,11 +23,11 @@ export default function MenuLinks({ isOpen }) {
           ? <>
               <MenuItem to="/profile">Profile</MenuItem>
               <MenuItem to="/upload">Upload</MenuItem>
-              <a onClick={logout}>Logout</a>
+              <MenuItem isLast={true}><a onClick={logout}>Logout</a></MenuItem>
             </>
           : <>
             <MenuItem to="/login">Login</MenuItem>
-            <MenuItem to="/register">Register</MenuItem>
+            <MenuItem isLast={true} to="/register">Register</MenuItem>
           </>}
         </Stack>
       </Box>

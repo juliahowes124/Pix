@@ -5,13 +5,15 @@ import Routes from './Routes';
 import UserContext from './context/userContext';
 import {useHistory} from 'react-router-dom';
 import PixlyApi from './PixlyApi';
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme, Container } from "@chakra-ui/react";
 
 const theme = extendTheme({
   colors: {
     brand: {
-      100: "#CBD5E0",
-      900: "#1a202c",
+      transparent: "transparent",
+      yellow: "#F6E05E",
+      light: "#faf3eb",
+      dark: "#676767",
     },
   },
 })
@@ -42,14 +44,14 @@ function App() {
   }
 
   return (
-    <div>
-      <UserContext.Provider value={{user, logout, login, register}}>
-        <ChakraProvider theme={theme}>
+    <UserContext.Provider value={{user, logout, login, register}}>
+      <ChakraProvider theme={theme}>
+        <Container bg="brand.light" maxW="container.xl" p={0}>
           <NavBar />
           <Routes />
-        </ChakraProvider>
-      </UserContext.Provider>
-    </div>
+        </Container>
+      </ChakraProvider>
+    </UserContext.Provider>
   );
 }
 
