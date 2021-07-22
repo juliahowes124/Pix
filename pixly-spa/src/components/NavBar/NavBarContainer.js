@@ -10,8 +10,8 @@ export default function NavBarContainer ({ children, ...props }) {
       w="100%"
       mb={8}
       p={8}
-      bg={["brand.dark", "brand.dark", "brand.transparent", "brand.transparent"]}
-      color={["brand.light", "brand.light", "brand.dark", "brand.dark"]}
+      bg={["dark", "dark", "transparent", "transparent"]}
+      color={["light", "light", "dark", "dark"]}
       {...props}
     >
       {children}

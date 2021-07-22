@@ -11,7 +11,7 @@ function NavBar(props) {
     <NavBarContainer {...props}>
       <Logo
         w="100px"
-        color={["brand.light", "brand.light", "brand.dark", "brand.dark"]}
+        color={["light", "light", "dark", "dark"]}
       />
       <MenuToggle isOpen={isOpen} toggle={() => setIsOpen(o => !o)}/>
       <MenuLinks isOpen={isOpen} />

@@ -5,18 +5,8 @@ import Routes from './Routes';
 import UserContext from './context/userContext';
 import {useHistory} from 'react-router-dom';
 import PixlyApi from './PixlyApi';
-import { ChakraProvider, extendTheme, Container } from "@chakra-ui/react";
-
-const theme = extendTheme({
-  colors: {
-    brand: {
-      transparent: "transparent",
-      yellow: "#F6E05E",
-      light: "#faf3eb",
-      dark: "#676767",
-    },
-  },
-})
+import { ChakraProvider, Container } from "@chakra-ui/react";
+import { myTheme } from './styles/theme';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -45,8 +35,8 @@ function App() {
 
   return (
     <UserContext.Provider value={{user, logout, login, register}}>
-      <ChakraProvider theme={theme}>
-        <Container bg="brand.light" maxW="container.xl" p={0}>
+      <ChakraProvider theme={myTheme}>
+        <Container bg="light" maxW="container.xl" height="100vh" p={0}>
           <NavBar />
           <Routes />
         </Container>
