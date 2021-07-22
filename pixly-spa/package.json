@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "form-data": "^4.0.0",
+    "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
     "jimp": "^0.16.1",
     "jsonwebtoken": "^8.5.1",

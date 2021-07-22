@@ -6,7 +6,7 @@ export default function Logo(props) {
   return (
     <Box {...props}>
       <Text fontSize="lg" fontWeight="bold">
-        <Link className="home" to="/">Home</Link>
+        <Link className="home" to="/">Pix</Link>
       </Text>
     </Box>
   )
