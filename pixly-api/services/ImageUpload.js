@@ -13,7 +13,7 @@ const s3 = new aws.S3();
 
 
 function upload(req, res, next) {
-  let ext = req.files.image.name.split('.')[1]
+  let ext = req.files.image.name.split('.')[1];
   const params = {
     ACL: 'public-read',
     Bucket: process.env.BUCKET_NAME,
@@ -22,6 +22,7 @@ function upload(req, res, next) {
   };
   
   s3.upload(params, (err, data) => {
+    if(err) return next(err)
     res.locals.data = data;
     return next();
   })

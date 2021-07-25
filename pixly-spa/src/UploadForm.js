@@ -13,7 +13,6 @@ function UploadForm() {
   }
 
   function handleSubmit(evt) {
-    console.log(user)
     evt.preventDefault();
     PixlyApi.uploadImage(formData, user.token);
     history.push(`/profile`);
