@@ -24,6 +24,7 @@ class Image {
     const results = await db.query(`
         SELECT * FROM images
         WHERE NOT is_private
+        ORDER BY created_at DESC
     `);
     const images = await Promise.all(results.rows.map(async i => {
       return new Image(i);

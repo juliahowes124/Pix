@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import UserContext from './context/userContext';
 import PixlyApi from './PixlyApi';
@@ -88,10 +88,6 @@ function UploadForm() {
           )}
         </Formik>
   </Box>
-    // <form onSubmit={handleSubmit}>
-    //   <input onChange={handleChange} name='image' type="file"  />
-    //   <button>Upload</button>
-    // </form>
   );
 }
 
