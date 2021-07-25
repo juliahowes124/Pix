@@ -13,7 +13,8 @@ import {
   Heading,
   Text,
   Flex,
-  Spacer
+  Spacer,
+  Image
 } from "@chakra-ui/react"
 
 function UploadForm() {
@@ -29,21 +30,16 @@ function UploadForm() {
     return error;
   }
 
-  useEffect(() => {
-    console.log(previewUrl);
-  }, [previewUrl])
-
   return (
     <Box w={["90%", "90%", "50%", "50%"]} p={4} m="auto" bg="white" mt="100" position="relative">
     <Heading mb="5">
       Upload an Image
     </Heading>
     <Formik
-          initialValues={{image: ''}}
+          initialValues={{image: null}}
           onSubmit={async (values, actions) => {
             await PixlyApi.uploadImage(values, user.token);
-            setPreviewUrl(values.image);
-            // history.push(`/profile`);
+            history.push(`/profile`);
             actions.setSubmitting(false);
           }}
         >
@@ -55,11 +51,26 @@ function UploadForm() {
                     <FormLabel htmlFor="image">
                       <Text>Image</Text>
                     </FormLabel>
-                    <Input {...field} id="image" type="file" />
+                    <Input {...field} id="image" value={undefined} type="file" onChange={(evt) => {
+                      const file = evt.target.files[0];
+                      if(!file) return;
+                      const fileReader = new FileReader();
+                      fileReader.onload = () => {
+                        setPreviewUrl(fileReader.result);
+                      }
+                      fileReader.readAsDataURL(file);
+                      props.setFieldValue("image", file);
+                    }} />
                     <FormErrorMessage>{form.errors.image}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
+              {previewUrl && 
+                <Box mt="5">
+                  <Heading variant="secondary">Preview: </Heading>
+                  <Image src={previewUrl}></Image>
+                </Box>
+              }
               <Flex justify="right">
                 <Spacer/>
                 <Box>
@@ -76,9 +87,6 @@ function UploadForm() {
             </Form>
           )}
         </Formik>
-        <div>
-          <img src={previewUrl}></img>
-        </div>
   </Box>
     // <form onSubmit={handleSubmit}>
     //   <input onChange={handleChange} name='image' type="file"  />

@@ -3,4 +3,10 @@ export const HeadingStyles = {
     textAlign: "center",
     color: "primary",
   },
+  variants: {
+    secondary: {
+      textAlign: "left",
+      fontSize: 'md'
+    }
+  }
 }
