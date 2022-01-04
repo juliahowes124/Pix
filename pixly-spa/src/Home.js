@@ -27,7 +27,7 @@ function Home() {
     <Flex flexWrap="wrap" justifyContent="space-around">
       {images.map(image => (
         <Box boxSize="sm" mb={8} key={image.id}>
-          <Image src={image.s3Url} onClick={handleImageClick} boxSize="sm" objectFit="cover"/>
+          <Image src={image.s3Url} onClick={() => handleImageClick(image.id)} boxSize="sm" objectFit="cover"/>
         </Box>
       ))}
     </Flex>
