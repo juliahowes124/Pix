@@ -12,7 +12,7 @@ import {
   Spacer
 } from "@chakra-ui/react"
 
-function AuthForm({ type, authFunc }) {
+export function AuthForm({ type, authFunc }) {
 
   function validateUserName(value) {
     let error;
@@ -29,6 +29,8 @@ function AuthForm({ type, authFunc }) {
     }
     return error;
   }
+
+  console.log('in auth')
 
   return (
     <Box w={["90%", "90%", "50%", "50%"]} p={4} m="auto" bg="white" mt="100" position="relative">
@@ -85,5 +87,3 @@ function AuthForm({ type, authFunc }) {
     </Box>
   );
 }
-
-export default AuthForm;
