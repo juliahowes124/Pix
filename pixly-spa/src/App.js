@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
 import Routes from './Routes';
@@ -10,11 +10,21 @@ import { myTheme } from './styles/theme';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [userDataLoaded, setUserDataLoaded] = useState(false);
   const history = useHistory()
+
+  //On load, check for user in localStorage
+  useEffect(() => {
+    if(localStorage.getItem('user')) {
+      setUser(localStorage.getItem('user'))
+    }
+    setUserDataLoaded(true)
+  }, [])
 
   function logout(){
     setUser(null);
     history.push('/');
+    localStorage.removeItem('user')
   }
 
   async function login(data){
@@ -22,7 +32,9 @@ function App() {
     if(userAndToken){
       setUser(userAndToken);
       history.push('/');
+      localStorage.setItem('user', userAndToken)
     } 
+    setUserDataLoaded(true)
   }
 
   async function register(data) {
@@ -30,11 +42,13 @@ function App() {
     if (userAndToken) {
       setUser(userAndToken);
       history.push('/');
+      localStorage.setItem('user', userAndToken)
     }
+    setUserDataLoaded(true)
   }
 
   return (
-    <UserContext.Provider value={{user, logout, login, register}}>
+    <UserContext.Provider value={{user, userDataLoaded, logout, login, register}}>
       <ChakraProvider theme={myTheme}>
         <Container bg="light" maxW="container.xl" minH="100vh" p={0}>
           <NavBar />
