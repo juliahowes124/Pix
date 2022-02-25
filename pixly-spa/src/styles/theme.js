@@ -5,11 +5,10 @@ import { HeadingStyles as Heading } from "./components/headingStyles";
 
 export const myTheme = extendTheme({
   colors: {
-    primary: "#676767",
-    secondary: "",
-    accent: "#F6E05E",
-    light: "#faf3eb",
-    dark: "#676767",
+    primary: "#a14d4d",
+    secondary: "#c78989",
+    light: "#f2f2f2",
+    dark: "#111111",
   },
   components: {
     Button,
