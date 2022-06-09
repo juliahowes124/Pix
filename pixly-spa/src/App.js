@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import NavBar from './components/NavBar/NavBar';
 import Routes from './Routes';
 import UserContext from './context/userContext';

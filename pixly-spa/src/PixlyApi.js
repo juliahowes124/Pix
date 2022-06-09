@@ -19,12 +19,6 @@ class PixlyApi {
     return image;
   }
 
-  static async fetchUserAlbums(username, token) {
-    const res = await axios.get(`${BASE_URL}/users/${username}/albums`, { headers: { 'Authorization': `Bearer ${token}`} });
-    const { albums } = res.data;
-    return albums;
-  }
-
   static async uploadImage(data, token) {
     const fd = new FormData();
     fd.append('image', data.image);
