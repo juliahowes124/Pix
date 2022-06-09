@@ -3,10 +3,9 @@
 const db = require("../db");
 
 class Image {
-  constructor({ id, s3_url, is_private, creator }) {
+  constructor({ id, s3_url, creator }) {
     this.id = id
     this.s3Url = s3_url
-    this.isPrivate = is_private
     this.creator = creator
   }
 
@@ -20,12 +19,12 @@ class Image {
     return new Image(results.rows[0]);
   }
 
-  static async getPublicImages() {
+  static async getPrivateImages(username) {
     const results = await db.query(`
         SELECT * FROM images
-        WHERE NOT is_private
+        WHERE creator = $1
         ORDER BY created_at DESC
-    `);
+    `, [username]);
     const images = await Promise.all(results.rows.map(async i => {
       return new Image(i);
     }));
@@ -33,17 +32,16 @@ class Image {
   }
 
   /** fetch image by id */
-  static async getById(id) {
+  static async getById(id, username) {
     const results = await db.query(`
       SELECT * FROM images
-      WHERE id = $1
-      AND NOT is_private
-    `, [id]);
+      WHERE id = $1 AND creator = $2
+    `, [id, username]);
 
     const image = results.rows[0];
 
     if (!image) {
-      const err = new Error("Private image or image does not exist");
+      const err = new Error("Can not fetch image");
       err.status = 404;
       throw err;
     }

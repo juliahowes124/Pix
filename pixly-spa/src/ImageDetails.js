@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Jimp from 'jimp';
-import { Text, Center, Image, Button, Box, HStack, Spinner} from '@chakra-ui/react'
+import { Center, Image, Button, Box, HStack, Spinner} from '@chakra-ui/react'
 import PixlyApi from './PixlyApi';
 import UserContext from './context/userContext';
 import { PageLayout } from './components/PageLayout';
