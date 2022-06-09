@@ -22,7 +22,7 @@ export default function MenuLinks({ isOpen }) {
           {user
           ? <>
               <MenuItem to="/upload">Upload</MenuItem>
-              <MenuItem isLast={true}><a onClick={logout}>Logout</a></MenuItem>
+              <MenuItem isLast={true} onClick={logout}>Logout</MenuItem>
             </>
           : <>
             <MenuItem to="/login">Login</MenuItem>

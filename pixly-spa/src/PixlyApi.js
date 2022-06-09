@@ -7,8 +7,8 @@ const BASE_URL = 'http://localhost:3001';
 
 class PixlyApi {
 
-  static async fetchImages() {
-    const res = await axios.get(`${BASE_URL}/images`);
+  static async fetchImages(token) {
+    const res = await axios.get(`${BASE_URL}/images`, { headers: { 'Authorization': `Bearer ${token}`}});
     const { images } = res.data;
     return images;
   }

@@ -1,31 +1,34 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import { useHistory } from "react-router-dom";
 import { Text, Flex, Box, Image } from "@chakra-ui/react"
 import PixlyApi from './PixlyApi';
 import { PageLayout } from './components/PageLayout';
+import UserContext from './context/userContext';
+import { Loading } from './components/Loading';
 
 function Home() {
   const [images, setImages] = useState(null);
   const history = useHistory();
+  const {user} = useContext(UserContext)
   
   useEffect(() => {
     async function getImages() {
-      const images = await PixlyApi.fetchImages();
+      const images = await PixlyApi.fetchImages(user);
       setImages(images);
     };
     getImages();
-  }, []);
+  }, [user]);
 
   const handleImageClick = (id) => {
     history.push(`/images/${id}`)
   }
 
   if (!images) {
-    return <Text>Loading...</Text>
+    return <Loading/>
   }
 
   return (
-    <PageLayout title="My Photos">
+    <PageLayout title="Photo Library">
       <Flex flexWrap="wrap" justifyContent="space-between">
         {images.map(image => (
           <Box boxSize="sm" mb={8} key={image.id} cursor="pointer">

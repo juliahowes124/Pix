@@ -1,10 +1,15 @@
 import { useContext, useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Jimp from 'jimp';
-import { Text, Center, Image, Button, Box, VStack, Spinner} from '@chakra-ui/react'
+import { Text, Center, Image, Button, Box, HStack, Spinner} from '@chakra-ui/react'
 import PixlyApi from './PixlyApi';
 import UserContext from './context/userContext';
 import { PageLayout } from './components/PageLayout';
+import {MdGradient, MdBlurOn} from 'react-icons/md'
+import {HiSun} from 'react-icons/hi'
+import {ImContrast} from 'react-icons/im'
+import {IoInvertModeOutline} from 'react-icons/io5'
+import { Loading } from './components/Loading';
 
 function ImageDetails() {
   const { id } = useParams();
@@ -17,13 +22,13 @@ function ImageDetails() {
 
   useEffect(() => {
     async function getImage() {
-      const image = await PixlyApi.fetchImageById(+id, user.token);
+      const image = await PixlyApi.fetchImageById(+id, user);
       setImage(image.s3Url);
       setOriginalImage(image.s3Url)
     }
 
     getImage();
-  }, []);
+  }, [id, user]);
 
   function handleReset() {
     setImage(originalImage)
@@ -44,34 +49,36 @@ function ImageDetails() {
 
   async function uploadFile() {
     setIsLoading(true)
-    await PixlyApi.uploadImage({ image: file }, user.token);
+    await PixlyApi.uploadImage({ image: file }, user);
     setIsLoading(false)
     history.push('/')
   }
 
   if(!image) {
-    return <Text>Loading...</Text>
+    return <Loading/>
   }
 
   return (
     <PageLayout title="Edit Photo">
-      <Center flexDirection="row">
+      <Center flexDir="column">
         <Box position="relative" mr="2rem">
-          <Image src={image} boxSize="md" objectFit="cover"/>
-          <Center boxSize="md" position="absolute" top={0} bg="white" opacity=".5" display={isLoading ? 'flex' : 'none'}>
+          <Image src={image} boxSize="sm" objectFit="cover"/>
+          <Center boxSize="sm" position="absolute" top={0} bg="white" opacity=".5" display={isLoading ? 'flex' : 'none'}>
             <Spinner/>
           </Center>
         </Box>
-        <VStack justifyContent="space-between" my="3rem" alignItems="start">
-          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('posterize', 10) }}>Posterize</Button>
-          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('sepia') }}>Sepia</Button>
-          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('brightness', .2) }}>Brighten</Button>
-          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('contrast', .1) }}>Contrast +</Button>
-          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('blur', 2) }}>Blur</Button>
-          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('invert') }}>Invert</Button>
+        <HStack justifyContent="space-between" my="1rem" alignItems="start">
+          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('posterize', 10) }}><MdGradient/></Button>
+          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('brightness', .2) }}><HiSun/></Button>
+          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('contrast', .1) }}><ImContrast/></Button>
+          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('blur', 2) }}><MdBlurOn/></Button>
+          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('invert') }}><IoInvertModeOutline/></Button>
+        </HStack>
+        <HStack>
+
         <Button isDisabled={isLoading} variant="primary" onClick={handleReset}>Reset</Button>
         <Button isDisabled={isLoading} variant="primary" onClick={uploadFile}>Save New</Button>
-        </VStack>
+        </HStack>
       </Center>
     </PageLayout>
   );
