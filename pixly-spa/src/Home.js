@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import { Text, Flex, Box, Image } from "@chakra-ui/react"
 import PixlyApi from './PixlyApi';
+import { PageLayout } from './components/PageLayout';
 
 function Home() {
   const [images, setImages] = useState(null);
@@ -24,14 +25,15 @@ function Home() {
   }
 
   return (
-    <Flex flexWrap="wrap" justifyContent="space-around">
-      {images.map(image => (
-        <Box boxSize="sm" mb={8} key={image.id}>
-          <Image src={image.s3Url} onClick={() => handleImageClick(image.id)} boxSize="sm" objectFit="cover"/>
-        </Box>
-      ))}
-    </Flex>
-      
+    <PageLayout title="Your photos">
+      <Flex flexWrap="wrap" justifyContent="space-between">
+        {images.map(image => (
+          <Box boxSize="sm" mb={8} key={image.id} cursor="pointer">
+            <Image src={image.s3Url} onClick={() => handleImageClick(image.id)} boxSize="sm" objectFit="cover"/>
+          </Box>
+        ))}
+      </Flex>
+    </PageLayout>
   );
 }
 

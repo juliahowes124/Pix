@@ -1,14 +1,16 @@
 import { useContext, useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Jimp from 'jimp';
-import { Text, Center, Image, Button, VStack } from '@chakra-ui/react'
+import { Text, Center, Image, Button, HStack, Box, Spinner } from '@chakra-ui/react'
 import PixlyApi from './PixlyApi';
 import UserContext from './context/userContext';
+import { PageLayout } from './components/PageLayout';
 
 function ImageDetails() {
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const [image, setImage] = useState(null);
+  const [originalImage, setOriginalImage] = useState(null)
   const [file, setFile] = useState(null);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(false);
@@ -17,10 +19,15 @@ function ImageDetails() {
     async function getImage() {
       const image = await PixlyApi.fetchImageById(+id, user.token);
       setImage(image.s3Url);
+      setOriginalImage(image.s3Url)
     }
 
     getImage();
   }, []);
+
+  function handleReset() {
+    setImage(originalImage)
+  }
 
   function handleEdit(method, arg) {
     setIsLoading(true)
@@ -56,15 +63,21 @@ function ImageDetails() {
   }
 
   return (
-    <Center>
-      <Image src={image} boxSize="md" objectFit="cover"/>
-      <VStack justifyContent="space-between">
-        <Button isLoading={isLoading} variant="primary" onClick={() => { handleEditColor('greyscale') }}>Grey scale</Button>
-        <Button isLoading={isLoading} variant="primary" onClick={() => { handleEdit('posterize', 10) }}>Posterize</Button>
-        <Button isLoading={isLoading} variant="primary" onClick={() => { handleEditColor('saturate', 50) }}>Saturate</Button>
-      <Button isLoading={isLoading} variant="primary" onClick={uploadFile} justifySelf="end">Save New</Button>
-      </VStack>
-    </Center>
+    <PageLayout title="Photo editing">
+      <Center flexDirection="column">
+        <Image src={image} boxSize="md" objectFit="cover"/>
+        <Center boxSize="md" position="absolute" bg="white" opacity=".5" display={isLoading ? 'flex' : 'none'}>
+          <Spinner/>
+        </Center>
+        <HStack justifyContent="space-between" my="3rem">
+          <Button isDisabled={isLoading} variant="primary" onClick={() => { handleEditColor('greyscale') }}>Grey scale</Button>
+          <Button isDisabled={isLoading} variant="primary" onClick={() => { handleEdit('posterize', 10) }}>Posterize</Button>
+          <Button isDisabled={isLoading} variant="primary" onClick={() => { handleEditColor('saturate', 50) }}>Saturate</Button>
+        <Button isDisabled={isLoading} variant="primary" onClick={uploadFile}>Save New</Button>
+        <Button isDisabled={isLoading} variant="primary" onClick={handleReset}>Reset</Button>
+        </HStack>
+      </Center>
+    </PageLayout>
   );
 }
 
