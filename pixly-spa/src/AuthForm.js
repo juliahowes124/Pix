@@ -30,8 +30,6 @@ export function AuthForm({ type, authFunc }) {
     return error;
   }
 
-  console.log('in auth')
-
   return (
     <Box w={["90%", "90%", "50%", "50%"]} p={4} m="auto" bg="white" mt="100" position="relative">
       <Heading mb="5">
