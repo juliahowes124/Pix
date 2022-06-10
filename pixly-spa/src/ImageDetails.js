@@ -54,7 +54,7 @@ function ImageDetails() {
   }
 
   return (
-    <PageLayout title="Photo editing">
+    <PageLayout title="Edit Photo">
       <Center flexDirection="row">
         <Box position="relative" mr="2rem">
           <Image src={image} boxSize="md" objectFit="cover"/>

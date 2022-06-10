@@ -25,7 +25,7 @@ function Home() {
   }
 
   return (
-    <PageLayout title="Your photos">
+    <PageLayout title="My Photos">
       <Flex flexWrap="wrap" justifyContent="space-between">
         {images.map(image => (
           <Box boxSize="sm" mb={8} key={image.id} cursor="pointer">
