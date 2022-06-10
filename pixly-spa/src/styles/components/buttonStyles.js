@@ -15,10 +15,11 @@ export const ButtonStyles = {
       },
     }),
     secondary: (props) => ({
-      bg: "secondary",
-      color: "white",
+      bg: "transparent",
+      outline: "2px solid gray",
+      color: "gray",
       _hover: {
-        bg: mode(darken("secondary", 20), whiten("secondary", 20))(props),
+        bg: "darkgray",
         boxShadow: "md"
       },
     }),

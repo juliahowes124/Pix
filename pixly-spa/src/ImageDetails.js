@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Jimp from 'jimp';
-import { Text, Center, Image, Button, HStack, Box, Spinner } from '@chakra-ui/react'
+import { Text, Center, Image, Button, Box, VStack, Spinner} from '@chakra-ui/react'
 import PixlyApi from './PixlyApi';
 import UserContext from './context/userContext';
 import { PageLayout } from './components/PageLayout';
@@ -34,15 +34,6 @@ function ImageDetails() {
     Jimp.read(image).then(img => img[method](arg).getBuffer(Jimp.AUTO, bufferCB));
   }
 
-  function handleEditColor(method, arg) {
-    setIsLoading(true)
-    Jimp.read(image).then(img => {
-      img.color([
-        { apply: method, params: [arg] }
-      ]).getBuffer(Jimp.AUTO, bufferCB);
-    });
-  }
-
   function bufferCB(err, buffer) {
     if(err) console.log('photo edit error: ', err)
     setFile(new File([buffer.buffer], "image.png", { type: "image/png" }));
@@ -64,18 +55,23 @@ function ImageDetails() {
 
   return (
     <PageLayout title="Photo editing">
-      <Center flexDirection="column">
-        <Image src={image} boxSize="md" objectFit="cover"/>
-        <Center boxSize="md" position="absolute" bg="white" opacity=".5" display={isLoading ? 'flex' : 'none'}>
-          <Spinner/>
-        </Center>
-        <HStack justifyContent="space-between" my="3rem">
-          <Button isDisabled={isLoading} variant="primary" onClick={() => { handleEditColor('greyscale') }}>Grey scale</Button>
-          <Button isDisabled={isLoading} variant="primary" onClick={() => { handleEdit('posterize', 10) }}>Posterize</Button>
-          <Button isDisabled={isLoading} variant="primary" onClick={() => { handleEditColor('saturate', 50) }}>Saturate</Button>
-        <Button isDisabled={isLoading} variant="primary" onClick={uploadFile}>Save New</Button>
+      <Center flexDirection="row">
+        <Box position="relative" mr="2rem">
+          <Image src={image} boxSize="md" objectFit="cover"/>
+          <Center boxSize="md" position="absolute" top={0} bg="white" opacity=".5" display={isLoading ? 'flex' : 'none'}>
+            <Spinner/>
+          </Center>
+        </Box>
+        <VStack justifyContent="space-between" my="3rem" alignItems="start">
+          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('posterize', 10) }}>Posterize</Button>
+          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('sepia') }}>Sepia</Button>
+          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('brightness', .2) }}>Brighten</Button>
+          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('contrast', .1) }}>Contrast +</Button>
+          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('blur', 2) }}>Blur</Button>
+          <Button isDisabled={isLoading} variant="secondary" onClick={() => { handleEdit('invert') }}>Invert</Button>
         <Button isDisabled={isLoading} variant="primary" onClick={handleReset}>Reset</Button>
-        </HStack>
+        <Button isDisabled={isLoading} variant="primary" onClick={uploadFile}>Save New</Button>
+        </VStack>
       </Center>
     </PageLayout>
   );

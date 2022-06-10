@@ -11,10 +11,9 @@ import {
   Input,
   Box,
   Heading,
-  Text,
   Flex,
   Spacer,
-  Image
+  Image,
 } from "@chakra-ui/react"
 
 function UploadForm() {
@@ -49,7 +48,7 @@ function UploadForm() {
                 {({ field, form }) => (
                   <FormControl mb="5" isInvalid={form.errors.image && form.touched.image}>
                     <FormLabel htmlFor="image">
-                      <Text>Image</Text>
+                    <Heading variant="secondary">Upload: </Heading>
                     </FormLabel>
                     <Input {...field} id="image" value={undefined} type="file" onChange={(evt) => {
                       const file = evt.target.files[0];
@@ -66,10 +65,10 @@ function UploadForm() {
                 )}
               </Field>
               {previewUrl && 
-                <Box mt="5">
+                <Flex mt="5" flexDirection="column">
                   <Heading variant="secondary">Preview: </Heading>
-                  <Image src={previewUrl}></Image>
-                </Box>
+                  <Image src={previewUrl} boxSize="350px" objectFit="cover" alignSelf="center"/>
+                </Flex>
               }
               <Flex justify="right">
                 <Spacer/>
