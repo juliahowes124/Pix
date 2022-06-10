@@ -14,16 +14,18 @@ router.post('/', ensureLoggedIn, fileUpload(), upload, async (req, res, next) =>
     return res.json({ image });
 });
 
-/** GETs all public images */
-router.get('/', async (req, res, next) => {
-    const images = await Image.getPublicImages();
+/** GETs all images for user */
+router.get('/', async (_, res) => {
+    const user = res.locals.user
+    const images = await Image.getPrivateImages(user.username);
     return res.json({ images });
 });
 
-/** GETs public image by id */
+/** GETs image by id */
 router.get('/:id', ensureLoggedIn, async (req, res) => {
     const id = req.params.id;
-    const image = await Image.getById(id);
+    const user = res.locals.user
+    const image = await Image.getById(id, user.username);
     return res.json({ image });
 });
 

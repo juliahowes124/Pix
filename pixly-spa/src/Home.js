@@ -30,11 +30,11 @@ function Home() {
   return (
     <PageLayout title="Photo Library">
       <Flex flexWrap="wrap" justifyContent="space-between">
-        {images.map(image => (
+        {images.length ? images.map(image => (
           <Box boxSize="sm" mb={8} key={image.id} cursor="pointer">
             <Image src={image.s3Url} onClick={() => handleImageClick(image.id)} boxSize="sm" objectFit="cover"/>
           </Box>
-        ))}
+        )): <Text width="100%" textAlign="center">No photos yet!</Text>}
       </Flex>
     </PageLayout>
   );

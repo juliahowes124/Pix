@@ -28,13 +28,4 @@ function upload(req, res, next) {
   })
 }
 
-
-// const fileFilter = (req, file, cb) => {
-//   if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
-//     return next()
-//   } else {
-//     throw new Error("Invalid file type, only JPEG and PNG is allowed!");
-//   }
-// };
-
 module.exports = {upload};
