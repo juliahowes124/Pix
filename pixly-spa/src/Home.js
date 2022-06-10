@@ -1,9 +1,11 @@
 import {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+import { Text, Flex, Box, Image } from "@chakra-ui/react"
 import PixlyApi from './PixlyApi';
 
 function Home() {
   const [images, setImages] = useState(null);
+  const history = useHistory();
   
   useEffect(() => {
     async function getImages() {
@@ -13,14 +15,23 @@ function Home() {
     getImages();
   }, []);
 
+  const handleImageClick = (id) => {
+    history.push(`/images/${id}`)
+  }
+
+  if (!images) {
+    return <Text>Loading...</Text>
+  }
+
   return (
-    images ? (
-      images.map(i => <Link key={i.id} to={`/images/${i.id}`}>
-        <img src={i.s3Url}  style={{width: '200px', height: '200px'}}/>
-      </Link>)
-    ) : (
-      <div>Loading...</div>
-    )
+    <Flex flexWrap="wrap" justifyContent="space-around">
+      {images.map(image => (
+        <Box boxSize="sm" mb={8} key={image.id}>
+          <Image src={image.s3Url} onClick={handleImageClick} boxSize="sm" objectFit="cover"/>
+        </Box>
+      ))}
+    </Flex>
+      
   );
 }
 
