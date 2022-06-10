@@ -37,7 +37,7 @@ function UploadForm() {
     <Formik
           initialValues={{image: null}}
           onSubmit={async (values, actions) => {
-            await PixlyApi.uploadImage(values, user.token);
+            await PixlyApi.uploadImage(values, user);
             history.push(`/`);
             actions.setSubmitting(false);
           }}
@@ -67,7 +67,7 @@ function UploadForm() {
               {previewUrl && 
                 <Flex mt="5" flexDirection="column">
                   <Heading variant="secondary">Preview: </Heading>
-                  <Image src={previewUrl} boxSize="350px" objectFit="cover" alignSelf="center"/>
+                  <Image src={previewUrl} boxSize="xxs" objectFit="cover" alignSelf="center"/>
                 </Flex>
               }
               <Flex justify="right">

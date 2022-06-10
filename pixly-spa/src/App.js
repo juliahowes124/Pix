@@ -14,8 +14,9 @@ function App() {
 
   //On load, check for user in localStorage
   useEffect(() => {
-    if(localStorage.getItem('user')) {
-      setUser(localStorage.getItem('user'))
+    const token = localStorage.getItem('user')
+    if(token) {
+      setUser(token)
     }
     setUserDataLoaded(true)
   }, [])
@@ -27,21 +28,21 @@ function App() {
   }
 
   async function login(data){
-    const userAndToken = await PixlyApi.login(data);
-    if(userAndToken){
-      setUser(userAndToken);
+    const {token} = await PixlyApi.login(data);
+    if(token){
+      setUser(token);
       history.push('/');
-      localStorage.setItem('user', userAndToken)
+      localStorage.setItem('user', token)
     } 
     setUserDataLoaded(true)
   }
 
   async function register(data) {
-    const userAndToken = await PixlyApi.register(data);
-    if (userAndToken) {
-      setUser(userAndToken);
+    const {token} = await PixlyApi.register(data);
+    if (token) {
+      setUser(token);
       history.push('/');
-      localStorage.setItem('user', userAndToken)
+      localStorage.setItem('user', token)
     }
     setUserDataLoaded(true)
   }
