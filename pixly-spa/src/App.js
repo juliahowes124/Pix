@@ -50,7 +50,7 @@ function App() {
   return (
     <UserContext.Provider value={{user, userDataLoaded, logout, login, register}}>
       <ChakraProvider theme={myTheme}>
-        <Container bg="light" maxW="container.xxl" minH="100vh" p={0}>
+        <Container bg="white" maxW="container.xxl" minH="100vh" p={0}>
           <NavBar />
           <Routes />
         </Container>

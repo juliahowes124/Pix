@@ -31,7 +31,7 @@ export function AuthForm({ type, authFunc }) {
   }
 
   return (
-    <Box w={["90%", "90%", "50%", "50%"]} p={4} m="auto" bg="white" mt="100" position="relative">
+    <Box w={["90%", "90%", "50%", "50%"]} p={4} m="auto"  mt="100" position="relative">
       <Heading mb="5">
         {type === 'login' ? "Login" : "Register"}
       </Heading>
@@ -50,7 +50,7 @@ export function AuthForm({ type, authFunc }) {
                       <FormLabel htmlFor="username">
                         <Text>Username</Text>
                       </FormLabel>
-                      <Input {...field} id="username" placeholder="Username" />
+                      <Input {...field} id="username" placeholder="Username"/>
                       <FormErrorMessage>{form.errors.username}</FormErrorMessage>
                     </FormControl>
                   )}

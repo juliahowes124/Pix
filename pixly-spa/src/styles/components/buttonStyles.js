@@ -16,11 +16,18 @@ export const ButtonStyles = {
     }),
     secondary: (props) => ({
       bg: "transparent",
-      outline: "2px solid #c78989",
+      outline: "2px solid #f5a9b4",
       color: "secondary",
       _hover: {
         bg: mode(darken("secondary", 20), whiten("secondary", 20))(props),
         boxShadow: "md"
+      },
+    }),
+    tertiary: (props) => ({
+      bg: "transparent",
+      color: "primary",
+      _hover: {
+        transform: "scale(1.3)"
       },
     }),
     defaultProps: {

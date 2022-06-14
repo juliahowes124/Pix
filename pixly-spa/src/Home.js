@@ -1,6 +1,6 @@
 import {useState, useEffect, useContext} from 'react';
 import { useHistory } from "react-router-dom";
-import { Text, Flex, Box, Image } from "@chakra-ui/react"
+import { Text, Grid, Box, Image, GridItem } from "@chakra-ui/react"
 import PixlyApi from './PixlyApi';
 import { PageLayout } from './components/PageLayout';
 import UserContext from './context/userContext';
@@ -29,13 +29,13 @@ function Home() {
 
   return (
     <PageLayout title="Photo Library">
-      <Flex flexWrap="wrap" justifyContent="space-between">
+      <Grid templateColumns={['repeat(1, 1fr)', null, 'repeat(2, 1fr)', 'repeat(3, 1fr)']} gap={4}>
         {images.length ? images.map(image => (
-          <Box boxSize="sm" mb={8} key={image.id} cursor="pointer">
+          <GridItem mb={8} key={image.id} cursor="pointer">
             <Image src={image.s3Url} onClick={() => handleImageClick(image.id)} boxSize="sm" objectFit="cover"/>
-          </Box>
+          </GridItem>
         )): <Text width="100%" textAlign="center">No photos yet!</Text>}
-      </Flex>
+      </Grid>
     </PageLayout>
   );
 }
