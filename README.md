@@ -1,5 +1,8 @@
 # Pix - Photo Editing App
 
+## Demo
+![Photo upload and edit](https://github.com/juliahowes124/Pix/blob/main/pix-demo.gif)
+
 ## Set up the database
 
 1. `brew install postgresql`
