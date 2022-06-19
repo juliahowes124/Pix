@@ -10,7 +10,7 @@ export default function NavBarContainer ({ children, ...props }) {
       w="100%"
       mb={8}
       p={8}
-      bg={["dark", "dark", "transparent", "transparent"]}
+      bg={["secondary", "secondary", "transparent", "transparent"]}
       color={["light", "light", "dark", "dark"]}
       {...props}
     >

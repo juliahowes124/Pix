@@ -6,7 +6,7 @@ import { HeadingStyles as Heading } from "./components/headingStyles";
 export const myTheme = extendTheme({
   colors: {
     primary: "#f26177",
-    secondary: "#f5a9b4",
+    secondary: "#d5e8f0",
     light: "#e1e9fc",
     dark: "#1f3b7d",
   },

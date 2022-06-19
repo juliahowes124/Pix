@@ -1,8 +1,6 @@
 "use strict";
 
 
-/** Convenience middleware to handle common auth cases in routes. */
-
 const jwt = require("jsonwebtoken");
 const { UnauthorizedError } = require("../expressError");
 
@@ -44,18 +42,12 @@ function ensureLoggedIn(req, res, next) {
 }
 
 
-/** Middleware to use when they be logged in as an admin user.
- *
- *  If not, raises Unauthorized.
- */
 
 /** Middleware to use when they must provide a valid token & be user matching
  *  username provided as route param.
  *
  *  If not, raises Unauthorized.
  */
-
-
 
 function ensureCorrectUser(req, res, next) {
   try {

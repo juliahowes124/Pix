@@ -10,17 +10,15 @@ export const ButtonStyles = {
       bg: "primary",
       color: "white",
       _hover: {
-        bg: mode(darken("primary", 20), whiten("primary", 20))(props),
+        bg: mode(darken("primary", 10), whiten("primary", 10))(props),
         boxShadow: "md"
       },
     }),
-    secondary: (props) => ({
+    secondary: () => ({
       bg: "transparent",
-      outline: "2px solid #f5a9b4",
-      color: "secondary",
+      color: "dark",
       _hover: {
-        bg: mode(darken("secondary", 20), whiten("secondary", 20))(props),
-        boxShadow: "md"
+        textDecoration: "underline",
       },
     }),
     tertiary: (props) => ({

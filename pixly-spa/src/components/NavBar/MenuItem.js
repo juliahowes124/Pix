@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { Text } from '@chakra-ui/layout';
+import { Button } from '@chakra-ui/react';
 
 export default function MenuItem({ children, isLast, to = "/", ...rest }) {
   return (
     <NavLink to={to}>
-      <Text display="block" {...rest}  bg={isLast && ["light", "light", "dark", "dark"]} color={isLast && ["dark", "dark", "light", "light"]} p={3}>
+      <Button display="block" {...rest}>
         {children}
-      </Text>
+      </Button>
     </NavLink>
   )
 }

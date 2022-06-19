@@ -12,7 +12,6 @@ function App() {
   const [userDataLoaded, setUserDataLoaded] = useState(false);
   const history = useHistory()
 
-  //On load, check for user in localStorage
   useEffect(() => {
     const token = localStorage.getItem('user')
     if(token) {

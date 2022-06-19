@@ -21,12 +21,12 @@ export default function MenuLinks({ isOpen }) {
         >
           {user
           ? <>
-              <MenuItem to="/upload">Upload</MenuItem>
-              <MenuItem isLast={true} onClick={logout}>Logout</MenuItem>
+              <MenuItem to="/upload" variant="secondary">Upload</MenuItem>
+              <MenuItem isLast={true} onClick={logout} variant="primary">Logout</MenuItem>
             </>
           : <>
-            <MenuItem to="/login">Login</MenuItem>
-            <MenuItem isLast={true} to="/register">Register</MenuItem>
+            <MenuItem to="/login" variant="secondary">Login</MenuItem>
+            <MenuItem isLast={true} to="/register" variant="primary">Register</MenuItem>
           </>}
         </Stack>
       </Box>
